@@ -13,8 +13,9 @@ class SwapiService {
     return body;
   }
 
-  getAllPeople() {
-    return this.getResource(`/people/`);
+  async getAllPeople() {
+    const res = await this.getResource(`/people/`);
+    return res.results;
   }
 
   getPerson(id) {
@@ -24,6 +25,8 @@ class SwapiService {
 
 const swapi = new SwapiService();
 
-swapi.getAllPeople().then((body) => {
-  console.log(body);
+swapi.getAllPeople().then((people) => {
+  people.forEach( (p) => {
+    console.log(p.name);
+  })
 })
